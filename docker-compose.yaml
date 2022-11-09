@@ -285,6 +285,7 @@ services:
     volumes:                                  # Por ahora dejo comentados algunas carpetas. Hay sólo archivos de programas hechos por el profesor.
       #- nga-files:/nga-files
       - ./jupyter/notebook:/notebook
+    #command: ["python", "/notebook/library.py"]
       #- nga-jupyter-data:./jupyter/notebook:/notebook
     ports:
       - "8888:8888"                  
