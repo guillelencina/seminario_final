@@ -1,7 +1,6 @@
+
 # Seminario de Tópicos Avanzados en Datos Complejos
 ### Especialización en ciencia de datos ITBA  
-  
-(Último testeo: 10/Nov:06:45)  
   
 Docentes:   
 Pedro Ferrari | pedro@muttdata.ai  
