@@ -1,23 +1,45 @@
 # Seminario de Tópicos Avanzados en Datos Complejos
-
-CAMBIO DE PRUEBA
-
-Docente:   
+#### Especialización en ciencia de datos ITBA  
+  
+(Último testeo: 10/Nov:06:45)  
+  
+Docentes:   
 Pedro Ferrari | pedro@muttdata.ai  
 Juan Martín Pampliega | jpamplie@itba.edu.ar  
 
-Estudiantes:    
-
+Estudiantes:      
 Guillermo Lencina | glencina@itba.edu.ar    
 Nicolas Arosteguy | narosteguy@itba.edu.ar    
 Alexander Chavez | achavezmontano@itba.edu.ar   
 
 ## Resumen
 
-A través de una API vinculada a la plataforma Spotify obtenemos datos de usuarios. Un ETL para procesar los datos, orquestado desde Airflow. El extract & transform se realiza con postgres. El procesamiento y visualización con phyton: Se usaron algoritmos de clasificación y grafos para encontrar patrones. 
+Se obtienen los datos a través de dos APIs; una para usuarios y otra para playlist. Para ello se usa python. El resultado de la primera API es almacenado en un .csv.  
+  
+Dicho archivo es transformado en una BD para almacenar las tablas de usuarios y playlist.
 
-## Infraestructura
+Mediante otro script, también en python, obtiene los datos procesados de las playlist, son embebidos en un _string_ y activa la segunda API que consulta sobre las playlist. Los datos obtenidos son almacenados y transformados con SQL para finalmente vincular a usuarios con artistas.  
+  
+Una vez vinculados, y a través del procesamiento de datos, se encuentran las relaciones entre usuarios y artistas que se consolidan en una tabla, todo esto con algoritmos de Machine Learning, específicamente de clustering, hasta lograr visualizar las relaciones posibles.  
 
+El orquestamiento de todas éstas tareas son a través de Airflow.  
+  
+  
+## Objetivo    
+  
+Generar un sistema de recomendaciones basado en relaciones entre usuarios de la plataforma Spotify, ya sea por gustos musicales y/o artistas que se vinculen entre las playlist.  
+
+
+## Contenido
+
+* [Infraestructura](#Infraestructura)
+* [Instalación y puesta en marcha del ambiente](#Pasos-para-instalar)
+* [Jupyter Notebook](jupyter/notebook/README.md)
+* [Airflow (DAGs configurados en _users_spotify.py_)](dags/README.md)
+  
+    
+## Infraestructura  
+  
 Nuestro trabajo simula una instalación de producción con múltiples containers en Docker.
 _docker-compose.yaml_ contiene las definiciones y configuraciones para los siguientes servicios:
 
@@ -31,7 +53,7 @@ _docker-compose.yaml_ contiene las definiciones y configuraciones para los sigui
 
 * Motor de base de datos postgres obtenida de la imagen postgres:13. 
 
-## Pasos para instalar:
+## Pasos para instalar
 
 1. Clonar repo: git clone https://github.com/guillelencina/seminario_final.git
 
