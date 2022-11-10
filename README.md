@@ -12,23 +12,32 @@ Estudiantes:
 Guillermo Lencina | glencina@itba.edu.ar    
 Nicolas Arosteguy | narosteguy@itba.edu.ar    
 Alexander Chavez | achavezmontano@itba.edu.ar   
-
+  
+  
 ## Resumen
 
-Se obtienen los datos a través de dos APIs; una para usuarios y otra para playlist. Para ello se usa python. El resultado de la primera API es almacenado en un .csv.  
+Se consultarán dos API's publicas de spotify, una con información de usuarios y sus playlist y otra con la información de las playlist perse.  
   
-Dicho archivo es transformado en una BD para almacenar las tablas de usuarios y playlist.
-
-Mediante otro script, también en python, obtiene los datos procesados de las playlist, son embebidos en un _string_ y activa la segunda API que consulta sobre las playlist. Los datos obtenidos son almacenados y transformados con SQL para finalmente vincular a usuarios con artistas.  
+En una primera instancia mediante un script de python (y con usuarios pre-seleccionados manualmente) se obtienen datos de los mismos que contienen las playlist que tengan creadas.  
   
-Una vez vinculados, y a través del procesamiento de datos, se encuentran las relaciones entre usuarios y artistas que se consolidan en una tabla, todo esto con algoritmos de Machine Learning, específicamente de clustering, hasta lograr visualizar las relaciones posibles.  
-
-El orquestamiento de todas éstas tareas son a través de Airflow.  
+La salida del  response es almacenada en un csv (users_file.csv) sin tranformar, y subido a la base de datos SEMINARIO en el schema staging ( donde almacenaremos los csv en tablas sin transformar ).  
+  
+Luego mediante Queries de SQL se ejecutan diferentes transformaciones para lograr extraer y estructurar de la tabla de staging de usuarios tanto los datos de los mismos como sus playlist.  
+  
+Una vez construidas las tablas de usuarios y playlist en el eschema public , con un segundo script de python obtenemos estos id de playlist ya procesados y consultamos la API de playlist, de donde obtenemos un 2do csv (playlist_file.csv) que será almacenado también en el schema de staging, sin procesar.  
+  
+Nuevamente con Queries SQL extraemos y estructuramos la tabla de playlist_artist, en donde vamos a poder obtener que artistas contiene cada playlist.  
+  
+Por último, con SQL, se genera una tabla con información (user_id, artista), vinculando todos los artistas que se hayan encontrado en las playlist con sus respectivos usuarios.  
+  
+Esta ultima información es exportada en un csv (export_colab.csv) para ser el input del colab y empezar con los algoritmos de clusterización.  
+  
+Todas estas tareas estarán osquestadas mediante operadores de airflow ( Postgres Operators y Python Operators)  
   
   
 ## Objetivo    
   
-Generar un sistema de recomendaciones basado en relaciones entre usuarios de la plataforma Spotify, ya sea por gustos musicales y/o artistas que se vinculen entre las playlist.  
+Obtener datos sobre que artistas que escuchan los usuarios en sus playlists publicas con el fin de prototipar la extraccióon, el procesamiento, y los análisis de la información para un futuro sistema de recomendacion basado en las coincidencias de artistas entre los usuarios.
 
 
 ## Contenido
@@ -53,6 +62,7 @@ _docker-compose.yaml_ contiene las definiciones y configuraciones para los sigui
     Una vez los containers estén en Running, podés ingresar desde acá -> [Airflow](http://localhost:8080)
 
 * Motor de base de datos postgres obtenida de la imagen postgres:13. 
+
 
 ## Pasos para instalar
 
