@@ -2,6 +2,8 @@
 # Seminario de Tópicos Avanzados en Datos Complejos
 ### Especialización en ciencia de datos ITBA  
   
+  
+  
 Docentes:   
 Pedro Ferrari | pedro@muttdata.ai  
 Juan Martín Pampliega | jpamplie@itba.edu.ar  
