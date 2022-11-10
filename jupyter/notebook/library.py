@@ -1,1 +1,0 @@
-print("la concha de tu madre allboys")
